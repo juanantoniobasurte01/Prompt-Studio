@@ -1,0 +1,864 @@
+[
+  {
+    "id": "image_krea_2",
+    "label": "Krea 2",
+    "medium": "image",
+    "file": "01_KREA_2.md",
+    "legacy": false,
+    "description": "Separadas la aplicación de Krea y las variantes abiertas RAW/Turbo; retirados deslizadores ajenos y ejemplos que añadían contenido.",
+    "prompt_contract": "Write a natural-language Krea 2 image description. Distinguish the hosted app from RAW/Turbo checkpoints. Preserve the requested medium and details; no unrequested style expansion or foreign tags. Keep negative_prompt empty.",
+    "prompt_format": "natural",
+    "negative_prompt_policy": "none",
+    "verification_status": "documentada",
+    "review_date": "2026-10-23",
+    "review_sources": [
+      "https://raw.githubusercontent.com/krea-ai/krea-2/main/README.md",
+      "https://raw.githubusercontent.com/krea-ai/krea-2/main/inference.py",
+      "https://www.krea.ai/blog/krea-2-deep-dive-walkthrough"
+    ]
+  },
+  {
+    "id": "image_krea_2_turbo",
+    "label": "Krea 2 Turbo",
+    "medium": "image",
+    "file": "02_KREA_2_TURBO.md",
+    "legacy": false,
+    "description": "Corregida la regla que forzaba prompts breves; negativos y configuración vinculados al Turbo original.",
+    "prompt_contract": "Write natural visual prose for Krea 2 Turbo. Detailed descriptions are appropriate when the scene needs them; do not force short prompts or add new scene details. Quote literal image text. No separate negative prompt or foreign syntax.",
+    "prompt_format": "natural",
+    "negative_prompt_policy": "none",
+    "verification_status": "documentada",
+    "review_date": "2026-10-23",
+    "review_sources": [
+      "https://raw.githubusercontent.com/krea-ai/krea-2/main/docs/prompting.md",
+      "https://raw.githubusercontent.com/krea-ai/krea-2/main/README.md",
+      "https://raw.githubusercontent.com/krea-ai/krea-2/main/inference.py"
+    ]
+  },
+  {
+    "id": "image_flux_1",
+    "label": "FLUX.1 / FLUX1.1",
+    "medium": "image",
+    "file": "03_FLUX_1.md",
+    "legacy": false,
+    "description": "Sustituida la política negativa genérica y aclarada la separación entre FLUX.1, Kontext, Fill y parsers externos.",
+    "prompt_contract": "Use clear descriptive prose for FLUX.1/FLUX1.1 T2I. No separate negatives, SD attention weights, score tags, or Midjourney flags. Describe desired visible states. Editing belongs to a compatible editing model.",
+    "prompt_format": "natural",
+    "negative_prompt_policy": "none",
+    "verification_status": "documentada",
+    "review_date": "2026-10-23",
+    "review_sources": [
+      "https://raw.githubusercontent.com/black-forest-labs/skills/master/skills/flux-image-best-practices/rules/flux1-models.md",
+      "https://raw.githubusercontent.com/black-forest-labs/skills/master/skills/flux-image-best-practices/rules/core-principles.md"
+    ]
+  },
+  {
+    "id": "image_flux_1_kontext",
+    "label": "FLUX.1 Kontext / Fill",
+    "medium": "image",
+    "file": "04_FLUX_1_KONTEXT.md",
+    "legacy": false,
+    "description": "Separadas las instrucciones imperativas de Kontext del contenido final de máscara en Fill; requisitos de adjuntos explícitos.",
+    "prompt_contract": "Prepare a Kontext edit instruction: name the change and what must stay fixed. Do not invent image contents or require a Fill mask. Attachments are supplied in the destination. Keep negative_prompt empty.",
+    "prompt_format": "edit",
+    "negative_prompt_policy": "none",
+    "verification_status": "documentada",
+    "review_date": "2026-10-23",
+    "review_sources": [
+      "https://docs.bfl.ai/kontext/kontext_image_editing",
+      "https://docs.bfl.ai/flux_1_fill"
+    ],
+    "prompt_contracts": [
+      {
+        "pattern": "\\bFLUX(?:[. -]?1)?[- ]*Fill\\b|(?:^|\\n)\\s*Fill\\s*(?:$|\\n)|\\b(?:inpaint(?:ing)?|outpaint(?:ing)?)\\b",
+        "contract": "Use FLUX.1 Fill: describe the intended content of the editable region and continuity with the image. An image plus mask/alpha must be attached in the destination; mark missing attachments in notes. Do not treat this as a Kontext-only edit. No separate negative prompt.",
+        "negative_prompt_policy": "none"
+      }
+    ]
+  },
+  {
+    "id": "image_flux_2",
+    "label": "FLUX.2",
+    "medium": "image",
+    "file": "05_FLUX_2.md",
+    "legacy": false,
+    "description": "Separado JSON semántico de solicitud API; eliminada la exigencia incorrecta de un esquema API para ese prompt.",
+    "prompt_contract": "Use FLUX.2 visual prose, not API JSON. Associate each HEX color with its object. For edits assign reference roles and invariants. Do not import FLUX 3 layout syntax. Keep negative_prompt empty.",
+    "prompt_format": "natural",
+    "negative_prompt_policy": "none",
+    "verification_status": "documentada",
+    "review_date": "2026-10-23",
+    "review_sources": [
+      "https://docs.bfl.ai/guides/prompting_guide_flux2",
+      "https://docs.bfl.ai/flux_2/flux2_text_to_image"
+    ],
+    "prompt_contracts": [
+      {
+        "pattern": "(?:\\b(?:output|salida|formato|prompt)\\s*[:=]?\\s*(?:en\\s+)?JSON\\b|\\b(?:structured JSON|JSON estructurad[oa]|return JSON|devuelve JSON|genera (?:un )?JSON)\\b|(?:^|\\n)\\s*JSON\\s*(?:$|\\n))",
+        "contract": "The user explicitly requested a FLUX.2 structured prompt. Put a valid semantic JSON object describing the scene inside the prompt string. This is not an API request or a fixed mandatory API schema. Preserve all scene details; no separate negatives.",
+        "negative_prompt_policy": "none",
+        "prompt_format": "json"
+      }
+    ]
+  },
+  {
+    "id": "image_flux_3",
+    "label": "FLUX 3 Image",
+    "medium": "image",
+    "file": "06_FLUX_3.md",
+    "legacy": false,
+    "description": "Documentado el layout real y sus coordenadas; separado Klein local de la API y de FLUX 3 Video.",
+    "prompt_contract": "Write FLUX 3 Image visual prose. No negative_prompt, guidance or seed in the official API prompt. Reference images by input order. Do not invent boxes. Klein captions are not proof that its official upsampler has run.",
+    "prompt_format": "natural",
+    "negative_prompt_policy": "none",
+    "verification_status": "documentada",
+    "review_date": "2026-10-23",
+    "review_sources": [
+      "https://docs.bfl.ai/guides/prompting_unified_basics",
+      "https://docs.bfl.ai/guides/prompting_layout",
+      "https://docs.bfl.ai/flux_3/flux3_image_layout",
+      "https://docs.bfl.ai/flux_3/flux3_image_klein"
+    ],
+    "prompt_contracts": [
+      {
+        "pattern": "\\b(?:bbox|bounding boxes?|layout con cajas|cajas de (?:posici[oó]n|composici[oó]n))\\b",
+        "contract": "FLUX 3 layout is permitted only when real element IDs and four-coordinate boxes were supplied by the user. If supplied, write the caption with <id> markers and append the JSON array of id/bbox/desc entries, using [top,left,bottom,right] integers 0..1000. Otherwise write prose and put the missing geometry in notes. No API body or invented boxes.",
+        "negative_prompt_policy": "none",
+        "prompt_format": "flux_layout"
+      }
+    ]
+  },
+  {
+    "id": "image_midjourney",
+    "label": "Midjourney",
+    "medium": "image",
+    "file": "07_MIDJOURNEY.md",
+    "legacy": false,
+    "description": "Negativos integrados mediante --no; compatibilidad de V8.2 confirmada sin imponerla a otras versiones.",
+    "prompt_contract": "Use Midjourney descriptive text with compatible requested parameters at the end. Put suitable exclusions in --no, never in a separate negative field. Beware independently interpreted words in --no. V8.2 does not support --q or old identity-reference mechanisms. Do not force a version.",
+    "prompt_format": "midjourney",
+    "negative_prompt_policy": "inline",
+    "verification_status": "documentada",
+    "review_date": "2026-10-23",
+    "review_sources": [
+      "https://docs.midjourney.com/hc/en-us/articles/32199405667853-Version",
+      "https://docs.midjourney.com/hc/en-us/articles/32859204029709-Parameter-List",
+      "https://docs.midjourney.com/hc/en-us/articles/32173351982093-No"
+    ]
+  },
+  {
+    "id": "image_stable_diffusion_1_5",
+    "label": "Stable Diffusion 1.5",
+    "medium": "image",
+    "file": "08_STABLE_DIFFUSION_1_5.md",
+    "legacy": false,
+    "description": "Retirados tags y pesos obligatorios; distinguida ficha histórica reflejada del parser de la interfaz.",
+    "prompt_contract": "Use compact descriptive text or checkpoint-documented tags for SD1.5; tags and quality words are not mandatory. Keep requested negatives in the separate negative field. Do not emit attention weights, BREAK or LoRA syntax without an explicitly confirmed parser.",
+    "prompt_format": "hybrid",
+    "negative_prompt_policy": "supported",
+    "verification_status": "documentada",
+    "review_date": "2026-10-23",
+    "review_sources": [
+      "https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5",
+      "https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Features"
+    ]
+  },
+  {
+    "id": "image_stable_diffusion_xl",
+    "label": "Stable Diffusion XL",
+    "medium": "image",
+    "file": "09_STABLE_DIFFUSION_XL.md",
+    "legacy": false,
+    "description": "Aclarados prosa, doble encoder, refiner opcional y negativo de pipeline; eliminada la extrapolación de derivados.",
+    "prompt_contract": "Use SDXL descriptive prose or a compact hybrid appropriate to the exact checkpoint. The refiner is optional; do not claim to run it. No mandatory Pony scores or parser weights. Put compatible requested exclusions in negative_prompt.",
+    "prompt_format": "hybrid",
+    "negative_prompt_policy": "supported",
+    "verification_status": "documentada",
+    "review_date": "2026-10-23",
+    "review_sources": [
+      "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0",
+      "https://huggingface.co/docs/diffusers/api/pipelines/stable_diffusion/stable_diffusion_xl"
+    ]
+  },
+  {
+    "id": "image_stable_diffusion_3_5",
+    "label": "Stable Diffusion 3.5",
+    "medium": "image",
+    "file": "10_STABLE_DIFFUSION_3_5.md",
+    "legacy": false,
+    "description": "Negativo condicionado a CFG y variante, sin trasladar configuraciones Large a Turbo ni sintaxis SDXL.",
+    "prompt_contract": "Write SD3.5 natural prose with clear subject relationships and literal quoted text. Separate execution settings. Negative conditioning requires a compatible CFG-enabled pipeline; do not assume it works with Turbo or disabled guidance. Record unconfirmed exclusions in notes.",
+    "prompt_format": "natural",
+    "negative_prompt_policy": "conditional",
+    "verification_status": "documentada",
+    "review_date": "2026-10-23",
+    "review_sources": [
+      "https://huggingface.co/stabilityai/stable-diffusion-3.5-large",
+      "https://huggingface.co/docs/diffusers/api/pipelines/stable_diffusion/stable_diffusion_3"
+    ]
+  },
+  {
+    "id": "image_pony_diffusion_xl",
+    "label": "Pony Diffusion XL",
+    "medium": "image",
+    "file": "11_PONY_DIFFUSION_XL.md",
+    "legacy": false,
+    "description": "Corregidos el prefijo incompleto y la obligación falsa de tags; comprobación original pendiente y señalada.",
+    "prompt_contract": "For original Pony V6 XL, use score_9, score_8_up, score_7_up, score_6_up, score_5_up, score_4_up followed by the requested scene. Natural language and relevant tags can be combined. No automatic style/rating change or generic negatives. These rules do not apply to V7 or arbitrary forks.",
+    "prompt_format": "hybrid",
+    "negative_prompt_policy": "supported",
+    "verification_status": "parcial",
+    "review_date": "2026-10-23",
+    "review_sources": [
+      "https://civitai.com/models/257749/pony-diffusion-v6-xl",
+      "https://huggingface.co/Snupihog/Pony_Diffusion_V6_XL",
+      "https://huggingface.co/docs/diffusers/api/pipelines/stable_diffusion/stable_diffusion_xl"
+    ]
+  },
+  {
+    "id": "image_illustrious_xl",
+    "label": "Illustrious XL",
+    "medium": "image",
+    "file": "12_ILLUSTRIOUS_XL.md",
+    "legacy": false,
+    "description": "Eliminada la clasificación exclusiva como tags y el cambio arbitrario de fotografía a ilustración.",
+    "prompt_contract": "Illustrious v1.0 supports natural language plus Danbooru-style tags. Preserve the requested medium; do not automatically turn photography into anime. No Pony score prefix or invented tags. Requested negatives depend on the SDXL workflow and exact derivative.",
+    "prompt_format": "hybrid",
+    "negative_prompt_policy": "supported",
+    "verification_status": "documentada",
+    "review_date": "2026-10-23",
+    "review_sources": [
+      "https://huggingface.co/OnomaAIResearch/Illustrious-XL-v1.0",
+      "https://huggingface.co/docs/diffusers/api/pipelines/stable_diffusion/stable_diffusion_xl"
+    ]
+  },
+  {
+    "id": "image_noobai_xl",
+    "label": "NoobAI XL",
+    "medium": "image",
+    "file": "13_NOOBAI_XL.md",
+    "legacy": false,
+    "description": "Separados calidad, fecha y rating; retirado safe automático y negativos de especie contradictorios.",
+    "prompt_contract": "Use NoobAI-native subject/character/series/style/special/general tags. Do not add Pony scores, safe/NSFW ratings, or species exclusions unless the scene requires them. newest is a training-era tag. Epsilon and V-Pred require distinct external workflows; keep appropriate negatives separate.",
+    "prompt_format": "tags",
+    "negative_prompt_policy": "supported",
+    "verification_status": "documentada",
+    "review_date": "2026-10-23",
+    "review_sources": [
+      "https://huggingface.co/Laxhar/noobai-XL-1.0/raw/main/README.md",
+      "https://huggingface.co/Laxhar/noobai-XL-Vpred-1.0/raw/main/README.md"
+    ]
+  },
+  {
+    "id": "image_qwen_image",
+    "label": "Qwen-Image",
+    "medium": "image",
+    "file": "14_QWEN_IMAGE.md",
+    "legacy": false,
+    "description": "Separados el generador, Image-Edit y los dos enhancers; aclarado que el slot negativo vacío del enhancer no define todos los pipelines.",
+    "prompt_contract": "Use natural image prose or a precise editing instruction. Qwen-Image, Image-Edit, and 2.1 Prompt Enhancers are different components. Do not send enhancer wrapper JSON to the image prompt. <imageN> and ratio_follow are only for that documented workflow; never claim to run or inspect references here.",
+    "prompt_format": "natural",
+    "negative_prompt_policy": "conditional",
+    "verification_status": "documentada",
+    "review_date": "2026-10-23",
+    "review_sources": [
+      "https://raw.githubusercontent.com/QwenLM/Qwen-Image/main/README.md",
+      "https://raw.githubusercontent.com/QwenLM/Qwen-Image-2.1/main/prompt_rewrite/README.md"
+    ],
+    "prompt_contracts": [
+      {
+        "pattern": "\\b(?:prompt enhancer|PE[- ](?:T2I|I2I)|enhancer\\s*2\\.1)\\b",
+        "contract": "The 2.1 Prompt Enhancer uses separate T2I/edit checkpoints and an empty negative slot. Prepare only the downstream rewritten visual instruction inside prompt, not a fabricated enhancer response; record canvas settings/attachment needs in notes. Do not claim the enhancer was executed.",
+        "negative_prompt_policy": "none"
+      }
+    ]
+  },
+  {
+    "id": "image_nano_banana_gemini",
+    "label": "Nano Banana / Gemini Image",
+    "medium": "image",
+    "file": "15_NANO_BANANA_GEMINI.md",
+    "legacy": false,
+    "description": "Corregida la generalización de multivuelta/múltiples referencias a Lite y separadas las APIs de Gemini e Imagen.",
+    "prompt_contract": "Write Gemini Image natural-language instructions with explicit invariants for edits. No separate negative prompt or Imagen API fields. Lite does not inherit Pro/2.1 multi-reference and sequential-edit assumptions. References, conversation state and search tools must actually be supplied/enabled in the target.",
+    "prompt_format": "natural",
+    "negative_prompt_policy": "none",
+    "verification_status": "documentada",
+    "review_date": "2026-10-23",
+    "review_sources": [
+      "https://ai.google.dev/gemini-api/docs/image-generation",
+      "https://ai.google.dev/gemini-api/docs/models/gemini-nano-banana-2.1"
+    ]
+  },
+  {
+    "id": "image_gpt_image",
+    "label": "GPT Image",
+    "medium": "image",
+    "file": "16_GPT_IMAGE.md",
+    "legacy": false,
+    "description": "Confirmadas las versiones actuales sin sustituir las elegidas; separados alfa, fidelidad de entrada, máscaras y parámetros externos.",
+    "prompt_contract": "Use GPT Image natural-language generation/edit instructions with explicit invariants and literal text. Respect the selected model. No separate negatives or fabricated API JSON. Alpha transparency needs compatible background/output settings, not a drawn checkerboard. Do not force input_fidelity on GPT Image 2.",
+    "prompt_format": "natural",
+    "negative_prompt_policy": "none",
+    "verification_status": "documentada",
+    "review_date": "2026-10-23",
+    "review_sources": [
+      "https://developers.openai.com/api/docs/guides/image-prompting",
+      "https://developers.openai.com/api/docs/guides/image-generation"
+    ]
+  },
+  {
+    "id": "image_ideogram",
+    "label": "Ideogram",
+    "medium": "image",
+    "file": "17_IDEOGRAM.md",
+    "legacy": false,
+    "description": "Conservado el esquema oficial 4/4.5, ahora activado solo bajo solicitud y diferenciado del transporte JSON.",
+    "prompt_contract": "Default to Ideogram natural prose and quoted literal image text. Ideogram 4/4.5 optionally support their documented image JSON schema, not an API body; do not activate structured mode merely because image text says JSON. Negative support is endpoint-dependent.",
+    "prompt_format": "natural",
+    "negative_prompt_policy": "conditional",
+    "verification_status": "documentada",
+    "review_date": "2026-10-23",
+    "review_sources": [
+      "https://docs.ideogram.ai/prompting/json-prompting",
+      "https://docs.ideogram.ai/create/image-settings"
+    ],
+    "prompt_contracts": [
+      {
+        "pattern": "\\b(?:Ideogram|versi[oó]n|version)\\s*v?3(?:\\.0)?\\b",
+        "contract": "Use natural prose for the requested Ideogram 3 route. Do not apply the 4/4.5 image-JSON schema. Negative conditioning is endpoint-dependent; keep external controls separate.",
+        "negative_prompt_policy": "conditional",
+        "prompt_format": "natural"
+      },
+      {
+        "pattern": "(?:\\b(?:output|salida|formato|prompt)\\s*[:=]?\\s*(?:en\\s+)?JSON\\b|\\b(?:structured JSON|JSON estructurad[oa]|return JSON|devuelve JSON|genera (?:un )?JSON)\\b|(?:^|\\n)\\s*JSON\\s*(?:$|\\n))",
+        "contract": "The user explicitly requested Ideogram 4/4.5 image JSON. Inside prompt return one JSON object with high_level_description and compositional_deconstruction {background, elements}. Elements need type obj/text and desc; text elements need text. Optional style_description uses photo OR art_style. bbox is optional [y_min,x_min,y_max,x_max], ordered integers 0..1000; use provided geometry only. No API envelope.",
+        "negative_prompt_policy": "conditional",
+        "prompt_format": "ideogram_json"
+      }
+    ]
+  },
+  {
+    "id": "image_seedream",
+    "label": "Seedream",
+    "medium": "image",
+    "file": "18_SEEDREAM.md",
+    "legacy": false,
+    "description": "Sustituidas fuentes de intermediarios por BytePlus/ByteDance; búsqueda y funciones separadas por revisión.",
+    "prompt_contract": "Use Seedream coherent, concise natural language, with explicit edits and reference roles. Distinguish 4/4.5 from 5 Lite; do not invent live-search results or claim search is enabled. Negative support must be confirmed for the exact endpoint; no score tags or API payload in prompt.",
+    "prompt_format": "natural",
+    "negative_prompt_policy": "conditional",
+    "verification_status": "documentada",
+    "review_date": "2026-10-23",
+    "review_sources": [
+      "https://docs.byteplus.com/en/docs/modelark/seedream-4-0-5-0-prompt-guide?redirect=1",
+      "https://seed.bytedance.com/en/blog/deeper-thinking-more-accurate-generation-introducing-seedream-5-0-lite"
+    ]
+  },
+  {
+    "id": "image_recraft",
+    "label": "Recraft",
+    "medium": "image",
+    "file": "19_RECRAFT.md",
+    "legacy": false,
+    "description": "Corregida la transferencia de negativos y text_layout de V3 a V4; diferenciado SVG real de apariencia vectorial.",
+    "prompt_contract": "Use Recraft design-oriented natural prose. Default V4 has no separate negative_prompt or V3 text_layout. Vector appearance is not an SVG file. Preserve literal copy, layout and style; external model/output settings determine raster/vector and editing support.",
+    "prompt_format": "natural",
+    "negative_prompt_policy": "none",
+    "verification_status": "documentada",
+    "review_date": "2026-10-23",
+    "review_sources": [
+      "https://www.recraft.ai/blog/prompt-engineering-guide",
+      "https://www.recraft.ai/docs/api-reference/models/recraft-v4",
+      "https://www.recraft.ai/docs/api-reference/models/recraft-v3"
+    ],
+    "prompt_contracts": [
+      {
+        "pattern": "\\bRecraft\\s*(?:[- ]?v)?3\\b|(?:^|\\n)\\s*V3\\s*(?:$|\\n)",
+        "contract": "The user explicitly selected Recraft V3. Use its natural image prompt and requested separate negative_prompt. V3 styles/text_layout are external API controls, not invented prompt JSON; do not apply V4 absence of negatives to V3.",
+        "negative_prompt_policy": "supported"
+      }
+    ]
+  },
+  {
+    "id": "image_adobe_firefly",
+    "label": "Adobe Firefly",
+    "medium": "image",
+    "file": "20_ADOBE_FIREFLY.md",
+    "legacy": false,
+    "description": "Separados Firefly nativo, partner models y Custom Models; negativos no soportados en Custom Image 3/4.",
+    "prompt_contract": "Write descriptive Firefly prose. Style and composition references are different controls. Partner models keep their own rules. Do not claim universal negative support or masking from text; Firefly Custom Models Image 3/4 do not support negative prompting.",
+    "prompt_format": "natural",
+    "negative_prompt_policy": "conditional",
+    "verification_status": "documentada",
+    "review_date": "2026-10-23",
+    "review_sources": [
+      "https://helpx.adobe.com/firefly/web/work-with-images/generate-images/writing-effective-text-prompts.html",
+      "https://developer.adobe.com/firefly-services/docs/firefly-api/guides/how-tos/cm-generate-image/"
+    ],
+    "prompt_contracts": [
+      {
+        "pattern": "\\b(?:Custom Models?|modelo[s]? personalizado[s]?)\\b",
+        "contract": "For Firefly Custom Models Image 3/4, no separate negative prompt. Prepare descriptive visual text and retain requested exclusions as compatible constraints or notes. Do not transplant partner model parameters.",
+        "negative_prompt_policy": "none"
+      }
+    ]
+  },
+  {
+    "id": "image_hidream",
+    "label": "HiDream",
+    "medium": "image",
+    "file": "21_HIDREAM.md",
+    "legacy": false,
+    "description": "Añadido el formato obligatorio E1-Full; E1.1 separado de I1 y negativos desactivados para Dev/Fast originales.",
+    "prompt_contract": "Use HiDream I1 visual prose by default. Do not confuse I1 T2I with E1 editing. Dev/Fast use disabled guidance in the original configuration, unlike Full; do not assume effective separate negatives. Preserve the requested scene.",
+    "prompt_format": "natural",
+    "negative_prompt_policy": "conditional",
+    "verification_status": "documentada",
+    "review_date": "2026-10-23",
+    "review_sources": [
+      "https://raw.githubusercontent.com/HiDream-ai/HiDream-I1/main/README.md",
+      "https://raw.githubusercontent.com/HiDream-ai/HiDream-E1/main/README.md",
+      "https://huggingface.co/docs/diffusers/api/pipelines/hidream"
+    ],
+    "prompt_contracts": [
+      {
+        "pattern": "\\b(?:HiDream[- ]?)?E1(?:\\.1|[- ]1)\\b",
+        "contract": "Use direct HiDream E1.1 editing instructions with explicit invariants and a real source-image attachment in the destination. Do not force the E1-Full two-section refinement format. Record missing image information in notes.",
+        "negative_prompt_policy": "conditional",
+        "prompt_format": "edit"
+      },
+      {
+        "pattern": "\\b(?:HiDream[- ]?)?E1(?:[- ]Full)?\\b",
+        "contract": "Use HiDream E1-Full editing format with Editing Instruction: then Target Image Description:. Preserve only known source details; attachments remain pending in the target. Do not use an I1 T2I description or E1.1-only shortcut.",
+        "required_sections": [
+          "Editing Instruction:",
+          "Target Image Description:"
+        ],
+        "negative_prompt_policy": "conditional",
+        "prompt_format": "hidream_e1"
+      },
+      {
+        "pattern": "\\bHiDream[- ](?:I1[- ])?(?:Dev|Fast)\\b|(?:^|\\n)\\s*(?:Dev|Fast)\\s*(?:$|\\n)",
+        "contract": "Use natural visual prose for the explicitly requested HiDream I1 Dev/Fast variant. Its original guidance is disabled: no effective separate negative prompt. External steps differ from Full; do not write execution settings into the prompt.",
+        "negative_prompt_policy": "none"
+      }
+    ]
+  },
+  {
+    "id": "image_z_image",
+    "label": "Z-Image",
+    "medium": "image",
+    "file": "22_Z_IMAGE.md",
+    "legacy": false,
+    "description": "Turbo ya no promete negativos efectivos; Base conserva el canal documentado y las variantes de edición no se presuponen.",
+    "prompt_contract": "Write Z-Image natural visual captions. Distinguish Turbo, Base and editing variants. Turbo with original zero guidance has no effective separate negatives; Base supports negative conditioning. Without the exact variant keep uncertain exclusions in notes, not as invented pipeline controls.",
+    "prompt_format": "natural",
+    "negative_prompt_policy": "conditional",
+    "verification_status": "documentada",
+    "review_date": "2026-10-23",
+    "review_sources": [
+      "https://raw.githubusercontent.com/Tongyi-MAI/Z-Image/main/README.md",
+      "https://huggingface.co/Tongyi-MAI/Z-Image-Turbo"
+    ],
+    "prompt_contracts": [
+      {
+        "pattern": "\\bZ[- ]?Image[- ]?Turbo\\b|(?:^|\\n)\\s*Turbo\\s*(?:$|\\n)",
+        "contract": "Use Z-Image Turbo visual prose. Original guidance_scale is zero: keep negative_prompt empty and preserve compatible exclusions in positive directions or notes. Do not use Base guidance or pretend a visible negative textbox guarantees conditioning.",
+        "negative_prompt_policy": "none"
+      },
+      {
+        "pattern": "\\bZ[- ]?Image[- ]?Base\\b|(?:^|\\n)\\s*Base\\s*(?:$|\\n)",
+        "contract": "Use the explicitly requested Z-Image Base workflow. Natural visual prose and the requested separate negative_prompt are supported in its CFG-enabled original pipeline. Do not apply Turbo zero-guidance limitations to Base.",
+        "negative_prompt_policy": "supported"
+      }
+    ]
+  },
+  {
+    "id": "video_gemini_omni_flash",
+    "label": "Gemini Omni Flash 1.1",
+    "medium": "video",
+    "file": "01_GEMINI_OMNI_FLASH.md",
+    "legacy": false,
+    "description": "Dirección conversacional y edición con conservación explícita.",
+    "prompt_contract": "Use a natural-language Gemini Omni video instruction. Preserve scene, action order, camera and ending. For an edit, state the requested change and what stays identical. Include requested audio with the correct source, and preserve literal dialogue language. Do not use H3 sections, Hailuo camera commands, invented reference tokens, or an API body. Keep negative_prompt empty.",
+    "audio_policy": "native",
+    "negative_prompt_policy": "none",
+    "verification_status": "contrastado",
+    "reviewed_at": "2026-10-20",
+    "sources": [
+      "https://ai.google.dev/gemini-api/docs/omni"
+    ]
+  },
+  {
+    "id": "video_google_veo_3_1_legacy",
+    "label": "Google Veo 3.1 (legado)",
+    "medium": "video",
+    "file": "02_GOOGLE_VEO_3_1_LEGACY.md",
+    "legacy": true,
+    "description": "Veo 3.1: descripción audiovisual; retirada de Preview limitada a Gemini API.",
+    "prompt_contract": "Write a Veo audiovisual prompt in natural prose. Keep camera and action distinct, preserve the ending and requested audio. Preserve quoted dialogue verbatim in its original language. Use no H3 fields or foreign reference tags. Do not treat Gemini API Preview retirement as a creative instruction or silently switch the target model.",
+    "audio_policy": "native",
+    "negative_prompt_policy": "conditional",
+    "verification_status": "contrastado",
+    "reviewed_at": "2026-10-20",
+    "sources": [
+      "https://ai.google.dev/gemini-api/docs/veo"
+    ]
+  },
+  {
+    "id": "video_runway_gen_4_5",
+    "label": "Runway Gen-4.5",
+    "medium": "video",
+    "file": "03_RUNWAY_GEN_4_5.md",
+    "legacy": false,
+    "description": "Gen-4.5: prosa visual y movimiento; timestamps como guía aproximada.",
+    "prompt_contract": "Write a Gen-4.5 visual motion prompt as natural, affirmative prose. Preserve action order, camera and ending. User timestamps may guide actions approximately; they do not necessarily mean cuts. I2V focuses on motion from the declared image. Native sound is not confirmed for this video route: put requested audio and exact dialogue in notes for a separate audio workflow, not as generated sound in prompt. No H3 fields or reference tokens. Keep negative_prompt empty.",
+    "audio_policy": "external",
+    "negative_prompt_policy": "none",
+    "verification_status": "contrastado",
+    "reviewed_at": "2026-10-20",
+    "sources": [
+      "https://help.runwayml.com/hc/en-us/articles/42460036199443-Text-to-Video-Prompting-Guide",
+      "https://docs.dev.runwayml.com/api-details/api_changelog/"
+    ]
+  },
+  {
+    "id": "video_kling_video_3_0",
+    "label": "Kling VIDEO 3.0 y Omni",
+    "medium": "video",
+    "file": "04_KLING_VIDEO_3_0.md",
+    "legacy": false,
+    "description": "Kling 3.0: una toma o Multi-Shot; Omni y Elements se declaran expresamente.",
+    "prompt_contract": "Write a Kling 3.0 prompt in natural language. Use one continuous take unless multiple shots are requested; only then use shot descriptions with supplied durations. Multi-Shot/Custom Multi-Shot must be enabled in the destination tool. Preserve declared Elements and their names without inventing @ tokens. Attribute requested dialogue and sounds correctly. Do not use H3 sections. Leave negative_prompt empty unless the exact integration is explicitly known to support it.",
+    "audio_policy": "native",
+    "negative_prompt_policy": "conditional",
+    "verification_status": "contrastado",
+    "reviewed_at": "2026-10-20",
+    "sources": [
+      "https://kling.ai/quickstart/klingai-video-3-model-user-guide",
+      "https://kling.ai/quickstart/klingai-video-3-omni-model-user-guide"
+    ]
+  },
+  {
+    "id": "video_seedance_2_5",
+    "label": "Seedance 2.5",
+    "medium": "video",
+    "file": "05_SEEDANCE_2_5.md",
+    "legacy": false,
+    "description": "Seedance 2.5: plan audiovisual y roles de referencias; límites por distribuidor.",
+    "prompt_contract": "Write Seedance 2.5 audiovisual direction, preserving actions, camera, pauses, timing, ending and requested sound. Use declared reference labels only; map each to identity, scene, motion or audio. Do not invent attachments or copy H3 sections. Keep a single take unless cuts are requested. Provider-specific configuration belongs in notes, not an API body in prompt. Keep negative_prompt empty.",
+    "audio_policy": "native",
+    "negative_prompt_policy": "none",
+    "verification_status": "parcial",
+    "reviewed_at": "2026-10-20",
+    "sources": [
+      "https://docs.byteplus.com/en/docs/modelark/seedance-2-5-prompt-guide",
+      "https://docs.volcengine.com/docs/ark/seedance-2-5-prompt-guide?lang=zh",
+      "https://docs.dev.runwayml.com/assets/inputs/"
+    ]
+  },
+  {
+    "id": "video_minimax_h3",
+    "label": "MiniMax H3 / H3 Max",
+    "medium": "video",
+    "file": "06_MINIMAX_H3.md",
+    "legacy": false,
+    "description": "H3: formato audiovisual por planos, anclajes de fotogramas y modo Ref2VA con referencias declaradas.",
+    "max_output_tokens": 3072,
+    "prompt_layouts": [
+      [
+        "integrated_multimodal_description:",
+        "[Shot 1]",
+        "overall_soundscape:",
+        "non_diegetic_music:"
+      ],
+      [
+        "subject_definitions:",
+        "summary:",
+        "retention_analysis:",
+        "detailed_description:",
+        "[Shot 1]",
+        "overall_soundscape:",
+        "non_diegetic_music:"
+      ]
+    ],
+    "prompt_contracts": [
+      {
+        "pattern": "\\b(?:ref2va|r2v)\\b|referencias completas|subject_definitions\\s*:",
+        "layout": 1,
+        "contract": "Generate the FULL-REFERENCE Ref2VA format. The prompt string must start with subject_definitions: and contain exactly these six sections in this order: subject_definitions:, summary:, retention_analysis:, detailed_description:, overall_soundscape:, non_diegetic_music:. Each heading starts its own line without parentheses or Markdown. Define <Subject 1> from the declared identity reference, explicitly citing its source <Picture 1> inside that definition; an identity image is not a keyframe. Do not create a standalone Picture entry or retention entry for an identity-only source image; analyze the Subject instead. Use stable labels and retention markers from the guide. detailed_description MUST contain [Shot 1] followed by the visible action, camera and audible events. This is NOT a first-frame task: do NOT write a keyframe alignment header and do NOT use integrated_multimodal_description. Preserve the requested actions, camera and setting. Do not borrow timestamps, distances, props, camera heights or other details from examples. Do not invent numerical timing. Write the six literal headings INSIDE the prompt string, not in notes. End with non_diegetic_music: followed by exactly N/A when no added music is requested, with no closing parentheses. The user will connect declared references in the destination workflow."
+      },
+      {
+        "pattern": "\\b(?:t2va|i2va|fl2va|l2va)\\b|Texto a vídeo|Imagen inicial|Primer y último fotograma|Solo fotograma final|How the reference pictures align|For the target video",
+        "layout": 0
+      }
+    ],
+    "prompt_contract": "Write the native H3 format INSIDE the prompt string, never a generic paragraph or a mere translation. In T2VA/I2VA/FL2VA/L2VA write these literal headings in order: integrated_multimodal_description: followed by [Shot 1] and the audiovisual scene; overall_soundscape: for ambience, physical sounds and non-verbal human sounds ONLY; non_diegetic_music: with N/A when no added score is requested. Put TV/radio voices, dialogue and diegetic music INSIDE the shot description, NEVER in overall_soundscape. Preserve the requested camera position, height, distance, fixed/moving state, actions, timing and ending. Do not invent those details. T2VA has no image alignment header. I2VA/FL2VA/L2VA use the guide's corresponding alignment header only for declared keyframes. For explicitly requested Ref2VA, use the guide's six sections and [Shot 1] inside detailed_description instead. Do not copy a scene or values from examples. The section labels and line breaks belong in prompt, not notes.",
+    "audio_policy": "native",
+    "negative_prompt_policy": "none",
+    "verification_status": "contrastado",
+    "reviewed_at": "2026-10-20",
+    "sources": [
+      "https://huggingface.co/MiniMaxAI/MiniMax-H3/blob/main/docs/VIDEO_PROMPT_WRITING_GUIDE_base_en.md",
+      "https://huggingface.co/MiniMaxAI/MiniMax-H3/blob/main/docs/VIDEO_PROMPT_WRITING_GUIDE_ref_en.md"
+    ]
+  },
+  {
+    "id": "video_hailuo_02_director_legacy",
+    "label": "Hailuo 02 / 2.3 / Director (MiniMax legado)",
+    "medium": "video",
+    "file": "07_HAILUO_02_DIRECTOR_LEGACY.md",
+    "legacy": true,
+    "description": "Hailuo 02/2.3/Director: prosa y comandos oficiales de cámara compatibles.",
+    "prompt_contract": "Write Hailuo 02/2.3/Director visual prose. Use only the documented camera commands when relevant, such as [Static shot] for a requested fixed camera. Preserve actions and ending. Do not use MiniMax H3 alignment or soundscape fields. Native audio is unconfirmed on this route: preserve requested audio and dialogue in notes for another workflow. Keep negative_prompt empty. Keep the prompt within the documented 2000-character T2V limit.",
+    "audio_policy": "external",
+    "negative_prompt_policy": "none",
+    "verification_status": "contrastado",
+    "reviewed_at": "2026-10-20",
+    "sources": [
+      "https://platform.minimax.io/docs/api-reference/video-generation-t2v",
+      "https://platform.minimax.io/docs/api-reference/video-generation-fl2v"
+    ]
+  },
+  {
+    "id": "video_wan_3_0",
+    "label": "Wan 3.0 Video",
+    "medium": "video",
+    "file": "08_WAN_3_0.md",
+    "legacy": false,
+    "description": "Wan 3.0: narración, storyboard opcional y referencias por tipo.",
+    "prompt_contract": "Write Wan 3.0 audiovisual prose. Keep one continuous shot unless cuts are requested. For requested multi-shot, use an overall description and coherent Shot N time ranges when supplied. References use declared Image N/Video N/Audio N roles, not H3 sections or Grok tokens. Preserve action order, camera, ending and requested sound. Do not invent references, timing or an API body. A negative is only appropriate for an explicitly compatible endpoint.",
+    "audio_policy": "native",
+    "negative_prompt_policy": "conditional",
+    "verification_status": "contrastado",
+    "reviewed_at": "2026-10-20",
+    "sources": [
+      "https://help.aliyun.com/en/model-studio/wan3-video-generation-prompt-guide",
+      "https://help.aliyun.com/en/model-studio/wan3-video-generation-guide"
+    ]
+  },
+  {
+    "id": "video_wan_2_7",
+    "label": "Wan 2.7 (Alibaba API)",
+    "medium": "video",
+    "file": "09_WAN_2_7.md",
+    "legacy": false,
+    "description": "Wan 2.7: plano único mediante texto; shot_type ya no gobierna el resultado.",
+    "prompt_contract": "Write a Wan 2.7 video prompt. Preserve a requested single shot explicitly in natural language; do not rely on shot_type. Use Shot N and times only for requested multi-shot. References are declared Image n/Video n, not H3 or Grok syntax. Preserve camera, action order, ending, and requested audio. The confirmed T2V endpoint supports a separate negative_prompt when needed; never mix it into positive prose.",
+    "audio_policy": "native",
+    "negative_prompt_policy": "supported",
+    "verification_status": "contrastado",
+    "reviewed_at": "2026-10-20",
+    "sources": [
+      "https://help.aliyun.com/en/model-studio/text-to-video-prompt",
+      "https://help.aliyun.com/en/model-studio/text-to-video-api-reference"
+    ]
+  },
+  {
+    "id": "video_wan_2_2_local",
+    "label": "Wan 2.2 (local / ComfyUI)",
+    "medium": "video",
+    "file": "10_WAN_2_2_LOCAL.md",
+    "legacy": false,
+    "description": "Wan 2.2 local: checkpoint de vídeo separado de S2V.",
+    "prompt_contract": "Write a Wan 2.2 local visual prompt as coherent descriptive prose. Respect the selected T2V/I2V checkpoint and declared image, without API reference tokens or H3 sections. Preserve camera, action sequence and ending. Base T2V/I2V does not synthesize requested audio: keep those requests in notes; S2V needs its own audio-conditioned workflow. Negative conditioning is separate and only for a compatible sampler.",
+    "audio_policy": "external",
+    "negative_prompt_policy": "conditional",
+    "verification_status": "contrastado",
+    "reviewed_at": "2026-10-20",
+    "sources": [
+      "https://github.com/Wan-Video/Wan2.2"
+    ]
+  },
+  {
+    "id": "video_luma_ray_3_2",
+    "label": "Luma Ray3.2",
+    "medium": "video",
+    "file": "11_LUMA_RAY_3_2.md",
+    "legacy": false,
+    "description": "Ray3.2: dirección y edición con fotogramas/control del producto.",
+    "prompt_contract": "Write Ray3.2 visual direction as natural prose. For modification specify the change and what is preserved, only if a source video is declared. Preserve camera, actions and ending. Do not claim native speech/audio or import Ray2 JSON, H3 blocks or Hailuo tags. Put requested sound and literal dialogue in notes for the relevant audio workflow. Keep negative_prompt empty.",
+    "audio_policy": "external",
+    "negative_prompt_policy": "none",
+    "verification_status": "contrastado",
+    "reviewed_at": "2026-10-20",
+    "sources": [
+      "https://lumalabs.ai/llm-info",
+      "https://lumalabs.ai/ray3"
+    ]
+  },
+  {
+    "id": "video_luma_ray_3_14",
+    "label": "Luma Ray3.14 (compatibilidad)",
+    "medium": "video",
+    "file": "12_LUMA_RAY_3_14.md",
+    "legacy": true,
+    "description": "Ray3.14: compatibilidad sin referencias de identidad ni Reframe.",
+    "prompt_contract": "Write Ray3.14 visual prose, respecting T2V/I2V/keyframe/Modify roles. This version does not support character-consistency reference images or Reframe according to its guide. Do not pretend an identity reference is supported or turn it into a first frame without permission; explain the mismatch in notes. Audio requests belong in notes for a separate workflow. No H3 format, foreign tokens or dedicated negative.",
+    "audio_policy": "external",
+    "negative_prompt_policy": "none",
+    "verification_status": "contrastado",
+    "reviewed_at": "2026-10-20",
+    "sources": [
+      "https://lumalabs.ai/learning-hub/ray314-user-guide"
+    ]
+  },
+  {
+    "id": "video_vidu_q4_q3",
+    "label": "Vidu Q4 / Q3",
+    "medium": "video",
+    "file": "13_VIDU_Q4_Q3.md",
+    "legacy": false,
+    "description": "Vidu: Q4 Preview requiere imágenes; Q3 se verifica por su propia ruta.",
+    "prompt_contract": "Write natural Vidu audiovisual direction. Preserve the explicitly requested variant and mode. A starting image declared for later upload in Vidu is a VALID I2V input plan: keep I2V, and notes must only remind the user to attach that starting image in Vidu. Do NOT say no image input was provided, do NOT invent a default image, and do NOT switch to R2V or Q3. Use only declared compatible reference labels. Preserve actions, fixed camera, ending and requested audio. No H3 fields, invented subject-library IDs or voice IDs; negative_prompt is empty.",
+    "audio_policy": "native",
+    "negative_prompt_policy": "none",
+    "verification_status": "contrastado",
+    "reviewed_at": "2026-10-20",
+    "sources": [
+      "https://platform.vidu.com/docs/api-reference/video-models/vidu-q4-preview/image-to-video",
+      "https://platform.vidu.com/docs/api-reference/video-models/vidu-q4-preview/reference-to-video",
+      "https://www.vidu.com/vidu-q3",
+      "https://platform.vidu.com/docs/api-reference/task-management/subjects"
+    ]
+  },
+  {
+    "id": "video_pika_2_5",
+    "label": "Pika 2.5 / Pikaframes",
+    "medium": "video",
+    "file": "14_PIKA_2_5.md",
+    "legacy": false,
+    "description": "Pika 2.5/Pikaframes: movimiento y transiciones de imágenes ordenadas.",
+    "prompt_contract": "Write Pika 2.5 visual motion prose. Pikaframes uses ordered keyframes and one common prompt for all consecutive transitions; do not invent separate per-segment prompt slots or H3 alignment. Preserve requested camera and ending. Put requested audio/dialogue in notes for a separate Pika audio tool. Only use a separate negative when the declared interface supports it, as documented for Pikaframes.",
+    "audio_policy": "external",
+    "negative_prompt_policy": "conditional",
+    "verification_status": "contrastado",
+    "reviewed_at": "2026-10-20",
+    "sources": [
+      "https://dev.pika.art/models/pika/pikaframes/image-to-video",
+      "https://creation.pika.art/apps?tab=models"
+    ]
+  },
+  {
+    "id": "video_pixverse",
+    "label": "PixVerse",
+    "medium": "video",
+    "file": "15_PIXVERSE.md",
+    "legacy": false,
+    "description": "PixVerse: endpoint explícito; multi-transition tiene instrucciones por segmento.",
+    "prompt_contract": "Write PixVerse prose for the declared endpoint. For multi-transition, keep each segment instruction associated with its declared starting image and duration; unlike Pikaframes, prompts are per segment. Do not output the API body in prompt or invent media IDs. Do not claim native audio unless the chosen route is explicitly compatible; keep pending audio requests in notes. No H3 sections or foreign reference tags. Negatives are endpoint-specific.",
+    "audio_policy": "conditional",
+    "negative_prompt_policy": "conditional",
+    "verification_status": "contrastado",
+    "reviewed_at": "2026-10-20",
+    "sources": [
+      "https://docs.platform.pixverse.ai/text-to-video-generation-13016634e0",
+      "https://docs.platform.pixverse.ai/multi-transition-video-43051215e0",
+      "https://docs.platform.pixverse.ai/"
+    ]
+  },
+  {
+    "id": "video_grok_imagine_video_1_5",
+    "label": "Grok Imagine Video 1.5",
+    "medium": "video",
+    "file": "16_GROK_IMAGINE_VIDEO_1_5.md",
+    "legacy": false,
+    "description": "Grok Imagine Video 1.5: referencias con índices reales y voces compatibles.",
+    "prompt_contract": "Write Grok Imagine Video 1.5 natural audiovisual prose. Use declared <IMAGE_n>/<AUDIO_n> bindings only. When a first-frame image is present alongside references, it occupies <IMAGE_0> and reference images start at <IMAGE_1>. Preserve supplied mappings. Preset voice_id references are not arbitrary uploaded voice cloning. Keep camera, action sequence, ending and requested audio. No H3 fields or invented media. Keep negative_prompt empty.",
+    "audio_policy": "native",
+    "negative_prompt_policy": "none",
+    "verification_status": "contrastado",
+    "reviewed_at": "2026-10-20",
+    "sources": [
+      "https://docs.x.ai/developers/model-capabilities/video/reference-to-video",
+      "https://docs.x.ai/developers/model-capabilities/video/generation"
+    ]
+  },
+  {
+    "id": "video_adobe_firefly_video",
+    "label": "Adobe Firefly Video",
+    "medium": "video",
+    "file": "17_ADOBE_FIREFLY_VIDEO.md",
+    "legacy": false,
+    "description": "Firefly Video: dirección visual sin confundir modelos asociados.",
+    "prompt_contract": "Write a Firefly Video visual prompt in direct prose, preserving camera, actions, style and ending. Do not transfer capabilities of partner models or separate audio tools to the base generator. Preserve audio requests and exact dialogue in notes for another workflow, not as guaranteed generated sound. Do not contradict declared camera/reference controls, invent tags, or use H3 structure. Keep negative_prompt empty.",
+    "audio_policy": "external",
+    "negative_prompt_policy": "none",
+    "verification_status": "contrastado",
+    "reviewed_at": "2026-10-20",
+    "sources": [
+      "https://helpx.adobe.com/firefly/web/work-with-audio-and-video/work-with-video/writing-effective-text-prompts-for-video-generation.html",
+      "https://helpx.adobe.com/firefly/web/work-with-audio-and-video/work-with-video/enhance-your-prompt-for-video-generation.html"
+    ]
+  },
+  {
+    "id": "video_ltx_2_5",
+    "label": "LTX-2.5 (API y local ComfyUI)",
+    "medium": "video",
+    "file": "18_LTX_2_5.md",
+    "legacy": false,
+    "description": "LTX-2.5: prosa cronológica; cortes descritos, no lista aislada de planos.",
+    "prompt_contract": "Write LTX-2.5 as flowing chronological prose in the present tense, including requested audio and verbatim quoted dialogue. For requested multi-shot, describe each cut in prose and re-establish framing, subject continuity and audio continuity. Do not output a numbered shot list alone, H3 sections or foreign reference tokens. Preserve pauses, camera and ending. Do not invent timing or a soundtrack. Negative conditioning depends on the actual pipeline.",
+    "audio_policy": "native",
+    "negative_prompt_policy": "conditional",
+    "verification_status": "contrastado",
+    "reviewed_at": "2026-10-20",
+    "sources": [
+      "https://docs.ltx.io/api-documentation/implementation-guides/prompting-guide/",
+      "https://docs.ltx.io/models/ltx-2-5/"
+    ]
+  },
+  {
+    "id": "video_hunyuanvideo_1_5",
+    "label": "HunyuanVideo 1.5",
+    "medium": "video",
+    "file": "19_HUNYUANVIDEO_1_5.md",
+    "legacy": false,
+    "description": "HunyuanVideo 1.5: descripción dinámica y checkpoint T2V/I2V correcto.",
+    "prompt_contract": "Write HunyuanVideo 1.5 as clear descriptive visual prose: subject, motion, scene, camera, light and style. Preserve sequential actions, spatial relations and ending. In I2V focus on how the declared first frame develops. Brackets in the handbook formula are optional components, not tags to output. Base video audio is unconfirmed: preserve sound/dialogue requests in notes for another workflow. A compatible pipeline can take a separate negative_prompt.",
+    "audio_policy": "external",
+    "negative_prompt_policy": "conditional",
+    "verification_status": "contrastado",
+    "reviewed_at": "2026-10-20",
+    "sources": [
+      "https://github.com/Tencent-Hunyuan/HunyuanVideo-1.5",
+      "https://github.com/Tencent-Hunyuan/HunyuanVideo-1.5/blob/main/assets/HunyuanVideo_1_5_Prompt_Handbook_EN.md"
+    ]
+  },
+  {
+    "id": "video_skyreels_v4",
+    "label": "SkyReels V4",
+    "medium": "video",
+    "file": "20_SKYREELS_V4.md",
+    "legacy": false,
+    "description": "SkyReels V4: capacidades multimodales confirmadas; contrato de endpoint parcial.",
+    "prompt_contract": "Write SkyReels V4 audiovisual direction in natural prose, preserving actions, camera, ending and requested sound. The paper confirms multimodal capability, not the exact commercial endpoint grammar. Do not invent proprietary tags, API fields, masks or local checkpoint availability. Explain an unconfirmed destination mode in notes. No H3 structure; keep negative_prompt empty.",
+    "audio_policy": "native",
+    "negative_prompt_policy": "none",
+    "verification_status": "parcial",
+    "reviewed_at": "2026-10-20",
+    "sources": [
+      "https://arxiv.org/abs/2602.21818",
+      "https://arxiv.org/html/2602.21818v1",
+      "https://www.skyreels.ai/api-platform"
+    ]
+  },
+  {
+    "id": "video_cogvideox",
+    "label": "CogVideoX (local)",
+    "medium": "video",
+    "file": "21_COGVIDEOX.md",
+    "legacy": false,
+    "description": "CogVideoX: texto descriptivo dentro del presupuesto del encoder.",
+    "prompt_contract": "Write CogVideoX as compact, descriptive visual prose in English by default. Prioritize requested subject, action sequence, camera and ending within the checkpoint text-encoder budget; do not expand endlessly or claim exact token counting without its tokenizer. No H3 fields or reference tokens. Audio/dialogue requests belong in notes for a separate workflow. Negative conditioning depends on the actual pipeline, not an invented CLI flag.",
+    "audio_policy": "external",
+    "negative_prompt_policy": "conditional",
+    "verification_status": "contrastado",
+    "reviewed_at": "2026-10-20",
+    "sources": [
+      "https://github.com/zai-org/CogVideo",
+      "https://raw.githubusercontent.com/zai-org/CogVideo/main/inference/cli_demo.py"
+    ]
+  }
+]

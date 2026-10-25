@@ -1,0 +1,7 @@
+* text=auto eol=lf
+*.bat text eol=crlf
+*.ps1 text eol=crlf
+*.ico binary
+*.exe binary
+*.zip binary
+*.md whitespace=-blank-at-eol

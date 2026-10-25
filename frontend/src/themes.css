@@ -1,0 +1,71 @@
+:root {
+  color-scheme: dark;
+  --page-bg: #101318;
+  --chrome-bg: #14181e;
+  --panel-bg: #181d25;
+  --input-bg: #191e26;
+  --focus-bg: #1a202b;
+  --surface-soft: #242a33;
+  --surface-hover: #383e4b;
+  --border: #303743;
+  --border-strong: #414861;
+  --text: #e8edf3;
+  --text-muted: #a0acbc;
+  --text-faint: #8996a5;
+  --placeholder: #8996a5;
+  --accent: #7269db;
+  --accent-hover: #6d5fcf;
+  --accent-text: #b8b5ff;
+  --accent-soft: #30354a;
+  --accent-border: #43455f;
+  --selected-bg: #3d4458;
+  --selected-text: #f3f4ff;
+  --success: #a3e7ce;
+  --success-bg: #203a34;
+  --error: #f6bdb9;
+  --error-bg: #39272a;
+  --scrim: #0008;
+  --shadow: #080a0eb3;
+  --shadow-small: #0a0c1066;
+  --on-accent: #ffffff;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --page-bg: #f3f5f9;
+  --chrome-bg: #ffffff;
+  --panel-bg: #ffffff;
+  --input-bg: #f7f8fc;
+  --focus-bg: #ffffff;
+  --surface-soft: #edf0f6;
+  --surface-hover: #e1e6f0;
+  --border: #d3d9e4;
+  --border-strong: #bcc5d5;
+  --text: #1d2638;
+  --text-muted: #536175;
+  --text-faint: #58657a;
+  --placeholder: #657086;
+  --accent: #6453c8;
+  --accent-hover: #5545b7;
+  --accent-text: #5143a8;
+  --accent-soft: #eceafa;
+  --accent-border: #c8c0eb;
+  --selected-bg: #dcd7f4;
+  --selected-text: #342766;
+  --success: #126346;
+  --success-bg: #e1f3eb;
+  --error: #a52d34;
+  --error-bg: #fce9e9;
+  --scrim: #17243d66;
+  --shadow: #24345026;
+  --shadow-small: #2434501a;
+  --on-accent: #ffffff;
+}
+
+.setting-label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 9px; color: var(--text); }
+.theme-switch { display: flex; gap: 4px; padding: 4px; background: var(--surface-soft); border: 1px solid var(--border); border-radius: 10px; }
+.theme-switch button { flex: 1; padding: 10px 6px; background: transparent; border-radius: 7px; color: var(--text-muted); font-size: 12px; }
+.theme-switch button.selected { background: var(--selected-bg); color: var(--selected-text); font-weight: 700; }
+.theme-switch button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.negative-input textarea { min-height: 85px; }
+.negative-input .helper { margin-bottom: 0; }
